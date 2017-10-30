@@ -1,3 +1,4 @@
+import { Platform } from "ionic-angular";
 import { Observable } from "rxjs/Rx";
 import { IMovie } from "../../interface/IMovie";
 import { Injectable } from "@angular/core";
@@ -10,8 +11,11 @@ export class MovieApiProvider {
 
   movies: IMovie[];
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private platform: Platform) {
     console.log("Hello MovieApiProvider Provider");
+    if (this.platform.is("cordova") && this.platform.is("android")) {
+      this.baseUrl = "/android_asset/www/assets/api/movies.json";
+    }
   }
 
   getMovies(): Observable<IMovie[]> {
