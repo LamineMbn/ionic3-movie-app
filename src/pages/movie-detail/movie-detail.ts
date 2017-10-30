@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { IMovie } from "../../interface/IMovie";
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
 
 /**
  * Generated class for the MovieDetailPage page.
@@ -9,16 +10,16 @@ import { NavController, NavParams } from 'ionic-angular';
  */
 
 @Component({
-  selector: 'page-movie-detail',
-  templateUrl: 'movie-detail.html',
+  selector: "page-movie-detail",
+  templateUrl: "movie-detail.html"
 })
 export class MovieDetailPage {
+  movie: IMovie;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MovieDetailPage');
+    console.log("ionViewDidLoad MovieDetailPage");
+    this.movie = this.navParams.data;
   }
-
 }
