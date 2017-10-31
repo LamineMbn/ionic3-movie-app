@@ -41,4 +41,9 @@ export class MovieListPage {
   changeDisplay() {
     this.displayGrid = !this.displayGrid;
   }
+
+  getColorFromRating(rating: number): string {
+    console.log(rating);
+    return rating > 9.0 ? "good" : "average";
+  }
 }
