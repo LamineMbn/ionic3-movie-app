@@ -17,7 +17,7 @@ import { NavController, NavParams } from "ionic-angular";
 })
 export class MovieListPage {
   movies: IMovie[];
-  grid: boolean = true;
+  displayGrid: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +39,6 @@ export class MovieListPage {
   }
 
   changeDisplay() {
-    this.grid = !this.grid;
+    this.displayGrid = !this.displayGrid;
   }
 }

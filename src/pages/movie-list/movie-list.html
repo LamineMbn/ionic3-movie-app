@@ -10,12 +10,14 @@
 <ion-content padding>
   <ion-buttons end>
     <button icon-only clear ion-button (click)=changeDisplay()>
-      <ion-icon name="grid" *ngIf="!grid"></ion-icon>
-      <ion-icon name="list" *ngIf="grid"></ion-icon>
+      <ng-template #displayListButton>
+        <ion-icon name="grid"></ion-icon>
+      </ng-template>
+      <ion-icon name="list" *ngIf="displayGrid; else displayListButton"></ion-icon>
     </button>
   </ion-buttons>
 
-  <ion-grid *ngIf="grid">
+  <ion-grid *ngIf="displayGrid; else displayList">
     <ion-row>
       <ion-col col-4 *ngFor="let movie of movies">
         <img [src]="movie.poster_path" (click)="goToDetail(movie)" />
@@ -23,10 +25,12 @@
     </ion-row>
   </ion-grid>
 
-  <ion-list *ngIf="!grid">
-    <ion-item *ngFor="let movie of movies" (click)="goToDetail(movie)">
-      {{movie.title}}
-    </ion-item>
-  </ion-list>
+  <ng-template #displayList>
+    <ion-list>
+      <ion-item *ngFor="let movie of movies" (click)="goToDetail(movie)">
+        {{movie.title}}
+      </ion-item>
+    </ion-list>
+  </ng-template>
 
 </ion-content>
