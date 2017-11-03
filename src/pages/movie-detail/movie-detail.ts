@@ -1,6 +1,12 @@
 import { IMovie } from "../../interface/IMovie";
 import { Component } from "@angular/core";
-import { AlertController, NavController, NavParams } from "ionic-angular";
+import {
+  AlertController,
+  NavController,
+  NavParams,
+  Toast,
+  ToastController
+} from "ionic-angular";
 
 @Component({
   selector: "page-movie-detail",
@@ -13,7 +19,8 @@ export class MovieDetailPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {}
 
   ionViewDidLoad() {
@@ -31,6 +38,7 @@ export class MovieDetailPage {
             text: "Yes",
             handler: () => {
               this.favorite = false;
+              this.toast(`You just unfavorite ${this.movie.title}`).present();
               // TODO persist data
             }
           },
@@ -44,5 +52,15 @@ export class MovieDetailPage {
       this.favorite = true;
       // TODO persist data
     }
+  }
+
+  toast(message: string): Toast {
+    return this.toastController.create({
+      message: message,
+      position: "bottom",
+      showCloseButton: true,
+      closeButtonText: "Ok",
+      duration: 2000
+    });
   }
 }
