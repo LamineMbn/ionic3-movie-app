@@ -43,7 +43,14 @@ export class MovieListPage {
   }
 
   getColorFromRating(rating: number): string {
-    console.log(rating);
-    return rating > 9.0 ? "good" : "average";
+    let colorRating = "average";
+
+    if (rating > 6.0) {
+      colorRating = "good";
+    } else if (rating < 4.0) {
+      colorRating = "bad";
+    }
+
+    return colorRating;
   }
 }
