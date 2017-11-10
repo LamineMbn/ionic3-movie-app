@@ -1,3 +1,4 @@
+import { UserPreferenceProvider } from "../../providers/user-preference/user-preference";
 import { IMovie } from "../../interface/IMovie";
 import { Component } from "@angular/core";
 import {
@@ -20,12 +21,16 @@ export class MovieDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private userPreferenceProvider: UserPreferenceProvider
   ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad MovieDetailPage");
     this.movie = this.navParams.data;
+    this.userPreferenceProvider
+      .isFavortieMovie(this.movie.id)
+      .then(value => (this.favorite = value));
   }
 
   toggleFavorite(): void {
@@ -38,8 +43,8 @@ export class MovieDetailPage {
             text: "Yes",
             handler: () => {
               this.favorite = false;
+              this.userPreferenceProvider.unfavoriteMovie(this.movie);
               this.toast(`You just unfavorite ${this.movie.title}`).present();
-              // TODO persist data
             }
           },
           {
@@ -50,7 +55,7 @@ export class MovieDetailPage {
       confirm.present();
     } else {
       this.favorite = true;
-      // TODO persist data
+      this.userPreferenceProvider.favoriteMovie(this.movie);
     }
   }
 

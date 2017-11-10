@@ -3,23 +3,27 @@
   <ion-navbar color="primary">
     <ion-title>Movie List</ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search" [(ngModel)]="queryText" (ionInput)="filterMovie()">
+    </ion-searchbar>
+  </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-buttons end>
+  <!-- <ion-buttons end>
     <button icon-only clear ion-button color="secondary" (click)=changeDisplay()>
       <ng-template #displayListButton>
         <ion-icon name="grid"></ion-icon>
       </ng-template>
       <ion-icon name="list" *ngIf="displayGrid; else displayListButton"></ion-icon>
     </button>
-  </ion-buttons>
+  </ion-buttons> -->
 
   <ion-grid *ngIf="displayGrid; else displayList">
     <ion-row>
-      <ion-col col-4 *ngFor="let movie of movies">
+      <ion-col col-4 *ngFor="let movie of filtredMovie">
         <img [src]="movie.poster_path" (click)="goToDetail(movie)" />
       </ion-col>
     </ion-row>
@@ -40,7 +44,7 @@
           </ion-col>
         </ion-row>
       </ion-list-header>
-      <ion-item *ngFor="let movie of movies" (click)="goToDetail(movie)">
+      <ion-item *ngFor="let movie of filtredMovie" (click)="goToDetail(movie)">
         <ion-row>
           <ion-col col-6 text-wrap>
             <h4>{{movie.title}}</h4>
